@@ -50,7 +50,7 @@ var watchPaths = [];
 
 DIRECTORIES.forEach(function (dir) {
     EXTENSIONS.forEach(function (ext) {
-        watchPaths.push(dir + '/*.' + ext);
+        watchPaths.push(dir + '/**/*.' + ext);
     });
 });
 
