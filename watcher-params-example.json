@@ -1,0 +1,13 @@
+{
+    "TOMCAT_HOST" : "localhost:8084",
+    "CONTEXT"     : "/sport",
+    "LOGIN"       : "sa",
+    "PASS"        : "sa",
+    "DIRECTORIES" : [
+        "app"
+    ],
+    "EXTENSIONS"  : [
+        "js",
+        "sql"
+    ]
+}
