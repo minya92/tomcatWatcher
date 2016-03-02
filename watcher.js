@@ -5,7 +5,7 @@ var url = require('url');
 var http = require('http');
 var chokidar = require('chokidar');
 
-var filename = process.argv[2] ? process.argv[2] : "watcher-params.json";
+var filename = process.argv[2] ? process.argv[2] : "watcher-config.json";
 
 fs.readFile(filename, (err, data) => {
   if (err) throw err;

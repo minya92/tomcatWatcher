@@ -1,6 +1,6 @@
 {
     "TOMCAT_HOST" : "localhost:8084",
-    "CONTEXT"     : "/sport",
+    "CONTEXT"     : "/test",
     "LOGIN"       : "sa",
     "PASS"        : "sa",
     "DIRECTORIES" : [
