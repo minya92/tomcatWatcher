@@ -1,0 +1,29 @@
+{
+  "name": "tomcat-watcher",
+  "version": "0.0.1",
+  "description": "Restarting the server when you change files in a project",
+  "main": "watcher.js",
+  "dependencies": {
+    "chokidar": "^1.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node watcher.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minya92/tomcatWatcher.git"
+  },
+  "keywords": [
+    "tomcat",
+    "platypus",
+    "platypus-platform",
+    "platypusjs"
+  ],
+  "author": "Mikhail Lapshin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minya92/tomcatWatcher/issues"
+  },
+  "homepage": "https://github.com/minya92/tomcatWatcher#readme"
+}
