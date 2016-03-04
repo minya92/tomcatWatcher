@@ -68,9 +68,10 @@ fs.readFile(filename, (err, data) => {
     });
 
     var watchPaths = [];
-
-    params.DIRECTORIES.forEach(function (dir) {
-        params.EXTENSIONS.forEach(function (ext) {
+    var DIRS = params.DIRECTORIES.split(",");
+    var EXT = params.EXTENSIONS.split(",");
+    DIRS.forEach(function (dir) {
+        EXT.forEach(function (ext) {
             watchPaths.push(dir + '/**/*.' + ext);
         });
     });

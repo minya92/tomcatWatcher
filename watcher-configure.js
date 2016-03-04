@@ -10,26 +10,6 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// var defConf = {
-//     TOMCAT_HOST : "localhost:8084",
-//     CONTEXT     : "/test",
-//     LOGIN       : "sa",
-//     PASS        : "sa",
-//     DIRECTORIES : [
-//         "app"
-//     ],
-//     EXTENSIONS  : [
-//         "js",
-//         "sql"
-//     ],
-//     SFTP        : false,
-//     SFTP_HOST   : "192.168.100.12",
-//     SFTP_PORT   : "22",
-//     SFTP_USER   : "root",
-//     SFTP_PASS   : "password",
-//     SFTP_PATH   : "/var/testProject/"
-// };
-
 var defConf = [
     {
         param : "TOMCAT_HOST",
@@ -43,20 +23,75 @@ var defConf = [
         param : "LOGIN",
         value : "sa"
     },
-]
+    {
+        param : "PASS",
+        value : "sa"
+    },
+    {
+        param : "EXTENSIONS",
+        value : "js,sql"
+    },
+    {
+        param : "DIRECTORIES",
+        value : "app"
+    },
+    {
+        param : "SFTP",
+        value : true
+    },
+    {
+        param : "SFTP_HOST",
+        value : "192.168.1.12"
+    },
+    {
+        param : "SFTP_PORT",
+        value : "22"
+    },
+    {
+        param : "SFTP_USER",
+        value : "root"
+    },
+    {
+        param : "SFTP_PASS",
+        value : "password"
+    },
+    {
+        param : "SFTP_PATH",
+        value : "/var/testProject/"
+    }
+];
 
-var outConf =[];
+var outConf ={};
 
-var ask = function(i){
-    rl.question(defConf[i].param + ":", function(answer) {
-        outConf.push(answer);
-        i = i++;
-        console.log(outConf);
-        if(i == defConf.length - 1)
-            rl.close();
-        else
-            ask(i);
+var save = function(){
+    fs.writeFile('watcher-config.json', JSON.stringify(outConf), function(err) {
+            if (err) throw err;
+        console.log("Config saved! Use command to run: watcher");
     });
 }
+
+var ask = function(i){
+    if(i != 100) {
+        rl.question(defConf[i].param + " (" +defConf[i].value+ "): ", function(answer) {
+            outConf[defConf[i].param] = answer ? answer : defConf[i].value;
+            if (i == defConf.length - 1) {
+                console.log(outConf);
+                ask(100);
+            } else {
+                ask(i + 1);
+            }
+        });
+    } else {
+        rl.question("All right? y/n (y): ", function(answer) {
+            if(answer == 'Y' || answer == 'y' || answer == 'yes' || !answer){
+                rl.close();
+                save();
+            } else {
+                outConf = {};
+                ask(0);
+            }
+        });
+    }
+};
 
 ask(0);

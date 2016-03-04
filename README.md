@@ -1,63 +1,61 @@
-## tomcat-watcher
+## Install
 
-### Install
-
-Install only global module
+Install only npm global module
 
 ```bash
 $ npm install -g tomcat-watcher
 ```
-### Create config file
+## Configure
 
-Create config file in root folder your project 
-
-```javascript
-{
-    "TOMCAT_HOST" : "localhost:8084",
-    "CONTEXT"     : "/test",
-    "LOGIN"       : "sa",
-    "PASS"        : "sa",
-    "DIRECTORIES" : [
-        "app"
-    ],
-    "EXTENSIONS"  : [
-        "js",
-        "sql"
-    ],
-    "SFTP"        : false,
-    "SFTP_HOST"   : "192.168.100.12",
-    "SFTP_PORT"   : "22",
-    "SFTP_USER"   : "root",
-    "SFTP_PASS"   : "password",
-    "SFTP_PATH"   : "/var/testProject/"
-}
-```
-Login and pass for manager-script role
-
-or
+To configure your project run:
 
 ```bash
-$ wget http://raw.githubusercontent.com/minya92/tomcatWatcher/master/watcher-config.json
+$ cd PATH_TO_PROJECT
+$ watcher-conf
 ```
-In version 2.0.0 add support SFTP Deploy
+
+and answer a few questions
+
+### In version 2.0.0 add support SFTP Deploy
 
 Bugs SFTP:
  * Don't create new folders on remote server
  * Don't remove files on remote server
 
-### Run
+## Run
 
-```bash
-$ cd PATH_TO_PROJECT
-$ watcher config_file
+After configure will be created file:
+ * watcher-config.json
+ 
+```javascript
+{
+  "TOMCAT_HOST": "localhost:8084",
+  "CONTEXT": "/test",
+  "LOGIN": "sa",
+  "PASS": "sa",
+  "EXTENSIONS": "js,sql",
+  "DIRECTORIES": "app",
+  "SFTP": "true",
+  "SFTP_HOST": "192.168.1.12",
+  "SFTP_PORT": "22",
+  "SFTP_USER": "root",
+  "SFTP_PASS": "rootpass",
+  "SFTP_PATH": "/var/test/"
+}
 ```
-If you named config file as:
 
-* watcher-config.json
-
-Then you can run the command without parameters
+If this file exists run:
 
 ```bash
 $ cd PATH_TO_PROJECT
 $ watcher
+```
+
+If you named config file specific:
+
+Then you can run the command with parameter
+
+```bash
+$ cd PATH_TO_PROJECT
+$ watcher my_conf_file.json
 ```
