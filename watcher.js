@@ -29,7 +29,6 @@ fs.readFile(filename, (err, data) => {
     setInterval(checkChanges, 2000);
     
     function sftpSync(){
-        console.log ("!!!!!!!!!!!!!!!!!!!!!!!");
         FILES.forEach(function(file){
             var path = file.split('\\');
             if(!path[1])
