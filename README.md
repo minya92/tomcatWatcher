@@ -5,7 +5,7 @@
 Install as global nodejs module
 
 ```bash
-$ npm i -g tomcat-watcher
+$ sudo npm i -g tomcat-watcher
 ```
 ### Create config file
 
@@ -26,6 +26,7 @@ Create config file in root folder your project
     ]
 }
 ```
+Login and pass for manager-script role
 
 or
 
@@ -37,7 +38,7 @@ $ wget http://raw.githubusercontent.com/minya92/tomcatWatcher/master/watcher-con
 
 ```bash
 $ cd PATH_TO_PROJECT
-$ watcher config_file
+$ twatch config_file
 ```
 If you named config file as:
 
@@ -47,5 +48,5 @@ Then you can run the command without parameters
 
 ```bash
 $ cd PATH_TO_PROJECT
-$ watcher
+$ twatch
 ```
