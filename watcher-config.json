@@ -9,5 +9,11 @@
     "EXTENSIONS"  : [
         "js",
         "sql"
-    ]
+    ],
+    "SFTP"        : false,
+    "SFTP_HOST"   : "192.168.100.12",
+    "SFTP_PORT"   : "22",
+    "SFTP_USER"   : "root",
+    "SFTP_PASS"   : "password",
+    "SFTP_PATH"   : "/var/testProject/"
 }

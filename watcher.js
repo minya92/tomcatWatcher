@@ -4,6 +4,7 @@ var fs = require('fs');
 var url = require('url');
 var http = require('http');
 var chokidar = require('chokidar');
+var client = require('scp2');
 
 var filename = process.argv[2] ? process.argv[2] : "watcher-config.json";
 
@@ -12,16 +13,41 @@ fs.readFile(filename, (err, data) => {
   
   var params = JSON.parse(data.toString());
   var changed = false;
+  var FILES = [];
+  var firstRun = true;
   
   function checkChanges(){
         if(changed){
             changed = false;
             reloadContext();
+            if(!!params.SFTP)
+                sftpSync();
         }
+        firstRun = false;
     }
 
     setInterval(checkChanges, 2000);
-
+    
+    function sftpSync(){
+        console.log ("!!!!!!!!!!!!!!!!!!!!!!!");
+        FILES.forEach(function(file){
+            var path = file.split('\\');
+            if(!path[1])
+                path = file.split('/')
+            path.pop();
+            path = path.join('/') + '/';
+            client.scp(file, {
+                host: params.SFTP_HOST,
+                username: params.SFTP_USER,
+                password: params.SFTP_PASS,
+                path: params.SFTP_PATH + path, 
+            }, function(err) {
+                console.log("UPLOAD FILE TO: " + params.SFTP_PATH + path);
+            });
+        });
+        FILES = [];
+    }
+    
     function reloadContext(){
         console.log("RELOADING CONTEXT: " + params.CONTEXT);
         var URL = "http://" + params.LOGIN + ":" + params.PASS + "@" + params.TOMCAT_HOST + "/manager/text/reload?path=" + params.CONTEXT;
@@ -54,6 +80,9 @@ fs.readFile(filename, (err, data) => {
 
     watcher.on('all', (event, path) => {
         console.log(event, path);
-        changed = true;
+        if(!firstRun){
+            FILES.push(path);
+            changed = true;
+        } 
     });
 });
