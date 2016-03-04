@@ -38,7 +38,7 @@ $ wget http://raw.githubusercontent.com/minya92/tomcatWatcher/master/watcher-con
 
 ```bash
 $ cd PATH_TO_PROJECT
-$ twatch config_file
+$ watcher config_file
 ```
 If you named config file as:
 
@@ -48,5 +48,5 @@ Then you can run the command without parameters
 
 ```bash
 $ cd PATH_TO_PROJECT
-$ twatch
+$ watcher
 ```

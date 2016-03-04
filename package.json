@@ -1,9 +1,9 @@
 {
   "name": "tomcat-watcher",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Restarting the server when you change files in a project",
   "bin": {
-    "twatch": "./watcher.js"
+    "watcher": "./watcher.js"
   },
   "dependencies": {
     "chokidar": "^1.4.2"
