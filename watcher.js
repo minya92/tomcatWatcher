@@ -5,6 +5,7 @@ var url = require('url');
 var http = require('http');
 var chokidar = require('chokidar');
 var client = require('scp2');
+var babel = require("babel-core");
 
 var filename = process.argv[2] ? process.argv[2] : "watcher-config.json";
 
@@ -14,12 +15,14 @@ fs.readFile(filename, (err, data) => {
   var params = JSON.parse(data.toString());
   var changed = false;
   var FILES = [];
+  var ES6_FILES = [];
   var firstRun = true;
   
   function checkChanges(){
         if(changed){
             changed = false;
             reloadContext();
+			ESCompile();
             if(!!params.SFTP)
                 sftpSync();
         }
@@ -28,6 +31,19 @@ fs.readFile(filename, (err, data) => {
 
     setInterval(checkChanges, 2000);
     
+	function ESCompile(){
+		ES6_FILES.forEach(function(file){
+			babel.transformFile(file, {}, function(err, res){
+				var outFile = file.split('.es6.').join('.');
+				fs.writeFile(outFile, res.code, function(err) {
+					if (err) throw err;
+					console.log("ES6 FILE COMPILIED: " + file + " -> " + outFile);
+				});
+			});
+		});
+		ES6_FILES = [];
+	}
+	
     function sftpSync(){
         FILES.forEach(function(file){
             var path = file.split('\\');
@@ -81,7 +97,10 @@ fs.readFile(filename, (err, data) => {
     watcher.on('all', (event, path) => {
         console.log(event, path);
         if(!firstRun){
-            FILES.push(path);
+			if(event != 'unlink' && path.split('.es6.')[1])
+				ES6_FILES.push(path);
+			else
+				FILES.push(path);
             changed = true;
         } 
     });

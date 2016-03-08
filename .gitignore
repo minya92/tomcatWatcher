@@ -34,3 +34,9 @@ node_modules
 
 #idea
 .idea
+
+#test
+app
+test
+.babelrc
+watcher-config.json

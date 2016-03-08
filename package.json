@@ -1,6 +1,6 @@
 {
   "name": "tomcat-watcher",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Restarting the Apache Tomcat server when you change files in a project",
   "bin": {
     "watcher": "./watcher.js",
@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "chokidar": "^1.4.2",
-    "scp2": "^0.2.2"
+    "scp2": "^0.2.2",
+	"babel-core": "^6.6.5",
+	"babel-preset-es2015": "^6.6.0"
   },
   "devDependencies": {},
   "scripts": {

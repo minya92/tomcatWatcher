@@ -65,8 +65,14 @@ var outConf ={};
 
 var save = function(){
     fs.writeFile('watcher-config.json', JSON.stringify(outConf), function(err) {
-            if (err) throw err;
-        console.log("Config saved! Use command to run: watcher");
+		if (err) throw err;
+		else {
+			fs.writeFile('.babelrc', '{ "presets": ["es2015"] }', function(err) {
+				if (err) throw err;
+				console.log("Config saved! Use command to run: watcher");
+			});
+		}
+			
     });
 }
 
