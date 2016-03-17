@@ -37,7 +37,7 @@ var defConf = [
     },
     {
         param : "SFTP",
-        value : true
+        value : false
     },
     {
         param : "SFTP_HOST",
@@ -80,7 +80,7 @@ var ask = function(i){
     if(i != 100) {
         rl.question(defConf[i].param + " (" +defConf[i].value+ "): ", function(answer) {
             outConf[defConf[i].param] = answer ? answer : defConf[i].value;
-            if (i == defConf.length - 1) {
+            if (i == defConf.length - 1 || (defConf[i].param == "SFTP" && outConf[defConf[i].param] == false || outConf[defConf[i].param] == 'false')) {
                 console.log(outConf);
                 ask(100);
             } else {
@@ -88,7 +88,7 @@ var ask = function(i){
             }
         });
     } else {
-        rl.question("All right? y/n (y): ", function(answer) {
+        rl.question("Is this ok? y/n (y): ", function(answer) {
             if(answer == 'Y' || answer == 'y' || answer == 'yes' || !answer){
                 rl.close();
                 save();

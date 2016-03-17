@@ -23,8 +23,11 @@ fs.readFile(filename, (err, data) => {
             changed = false;
             reloadContext();
 			ESCompile();
-            if(!!params.SFTP)
+            if(params.SFTP == 'true' && params.SFTP != true){
+                params.SFTP_PATH = (params.SFTP_PATH.slice(-1) == '/' ? params.SFTP_PATH : params.SFTP_PATH + '/');
                 sftpSync();
+            }
+                
         }
         firstRun = false;
     }
@@ -51,13 +54,14 @@ fs.readFile(filename, (err, data) => {
                 path = file.split('/')
             path.pop();
             path = path.join('/') + '/';
+            console.log("UPLOADING FILE TO: " + params.SFTP_PATH + path);
             client.scp(file, {
                 host: params.SFTP_HOST,
                 username: params.SFTP_USER,
                 password: params.SFTP_PASS,
                 path: params.SFTP_PATH + path, 
             }, function(err) {
-                console.log("UPLOAD FILE TO: " + params.SFTP_PATH + path);
+                console.log("FILE UPLOADED TO: " + params.SFTP_PATH + path);
             });
         });
         FILES = [];
