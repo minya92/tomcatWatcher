@@ -16,11 +16,25 @@ $ watcher-conf
 
 and answer a few questions
 
-### In version 2.0.0 add support SFTP Deploy
+## In version 2.0.0 add support SFTP Deploy
 
-Bugs SFTP:
+**Bugs SFTP:**
  * Don't create new folders on remote server
  * Don't remove files on remote server
+
+## ES6 Support (Beta)
+
+ **To use this feature, you need to:**
+ 
+ * Allow check 'es6' extension in watcher-config.json
+ * install babel-preset-es2015 in the project folder 
+ 
+ ```bash
+$ cd PATH_TO_PROJECT
+$ npm i babel-preset-es2015
+```
+
+If the ES6 file '.es6' is changed, it will be automatically compiled into ES5 '.js' file.
 
 ## Run
 
@@ -59,3 +73,4 @@ Then you can run the command with parameter
 $ cd PATH_TO_PROJECT
 $ watcher my_conf_file.json
 ```
+
