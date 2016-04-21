@@ -38,13 +38,13 @@ fs.readFile(filename, (err, data) => {
 		ES6_FILES.forEach(function(file){
 			babel.transformFile(file, {}, function(err, res){
 				var outFile = file.split('.es6').join('.') + 'js';
-                if(res.code){
+                if(res && res.code){
                     fs.writeFile(outFile, res.code, function(err) {
                         if (err) throw err;
                         console.log("ES6 FILE COMPILIED: " + file + " -> " + outFile);
                     });
                 } else {
-                    console.log("ERROR CONVERTING FILE FROM ES6");
+                    console.log("ERROR CONVERTING FILE FROM ES6. Please install babel-preset-es2015 for this project (npm i babel-preset-es2015)");
                 }
 			});
 		});
@@ -106,7 +106,6 @@ fs.readFile(filename, (err, data) => {
         console.log(event, path);
         if(!firstRun){
 			if(event != 'unlink' && path.split('.').pop() == 'es6'){
-                console.log("ESS6");
                 ES6_FILES.push(path);
                 changed = true;
             } else {
